@@ -1,6 +1,7 @@
 package com.smart.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,9 +35,13 @@ public class MyConfig {
 	}
 
 	@Bean
-	public AuthenticationManagerBuilder configureAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-		return auth;
+	public AuthenticationManager configureAuthentication(HttpSecurity http) throws Exception {
+/*		auth.authenticationProvider(authenticationProvider());
+		return auth;*/
+		AuthenticationManagerBuilder authenticationManagerBuilder =
+				http.getSharedObject(AuthenticationManagerBuilder.class);
+		authenticationManagerBuilder.authenticationProvider(authenticationProvider());
+		return authenticationManagerBuilder.build();
 	}
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -12,9 +12,7 @@ import com.smart.entities.User;
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
-
 //constructor using field
-
 	public CustomUserDetails(User user) {
 		super();
 		this.user = user;

@@ -1,5 +1,6 @@
 package com.smart.controller;
 
+import com.smart.helper.SessionHelper;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class HomeController {
 	private UserRepository userRepository;
 
 	@Autowired
+	private SessionHelper sessionHelper;
+
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("/")
@@ -42,6 +46,7 @@ public class HomeController {
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "Register-SmartContactManager");
+		model.addAttribute("sessionHelper", sessionHelper);
 		model.addAttribute("user", new User());
 		return "signup";
 	}
@@ -51,21 +56,14 @@ public class HomeController {
 						   @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
 						   HttpSession session) {
 		try {
-
-			/*
-			 * System.out.println("Agreement" + agreement); System.out.println("User  " +
-			 * user);
-			 */
 			if (!agreement) {
-				System.out.println("You have not agreed the terms and conditions");
 				throw new Exception("You have not agreed the terms and conditions");
-
 			}
 			if (result1.hasErrors()) {
 				model.addAttribute("user", user);
 				return "signup";
 			}
-			user.setRole("ROLE_USER"); // set field manual
+			user.setRole("USER"); // set field manual
 			user.setEnabled(true);
 
 			// encode password
@@ -75,11 +73,13 @@ public class HomeController {
 			User result = this.userRepository.save(user);
 
 			model.addAttribute("user", new User());
+			model.addAttribute("sessionHelper", sessionHelper);
 			session.setAttribute("message", new Message("Successfully registered !! ", "alert-success"));
 			return "signup";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("user", user);
+			model.addAttribute("sessionHelper", sessionHelper);
 			session.setAttribute("message", new Message("Something went wrong !! " + e.getMessage(), "alert-danger"));
 			return "signup";
 		}
