@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
-	@RequestMapping("/index")
+		@RequestMapping("/")
 	public String dashboard() {
 		System.out.println("normal user called ");
 		return "normal/user_dashboard";

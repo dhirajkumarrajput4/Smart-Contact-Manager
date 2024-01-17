@@ -67,7 +67,7 @@ public class HomeController {
 				model.addAttribute("user", user);
 				return "signup";
 			}
-			user.setRole("USER"); // set field manual
+			user.setRole("ROLE_USER"); // set field manual
 			user.setEnabled(true);
 
 			// encode password
