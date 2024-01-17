@@ -50,10 +50,13 @@ public class MyConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
 						.authorizeRequests((authorizeRequests)->
-								authorizeRequests.requestMatchers("/admin/**")
+								authorizeRequests
+										.requestMatchers("/admin/**")
 								.hasRole("ADMIN")
-								.requestMatchers("/user/**").hasRole("USER")
-								.requestMatchers("/**").permitAll())
+								.requestMatchers("/user/**")
+										.hasRole("USER")
+								.requestMatchers("/**")
+										.permitAll())
 				.formLogin(Customizer.withDefaults());
 		return http.build();
 

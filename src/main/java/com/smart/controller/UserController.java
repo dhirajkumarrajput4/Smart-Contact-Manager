@@ -9,6 +9,7 @@ public class UserController {
 	
 	@RequestMapping("/index")
 	public String dashboard() {
+		System.out.println("normal user called ");
 		return "normal/user_dashboard";
 	}
 }
