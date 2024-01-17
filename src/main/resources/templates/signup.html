@@ -16,7 +16,7 @@
 							th:classappend="${session.message.type}" class="alert"
 							role="alert">
 							<p th:text="${session.message.content}" class="text-center"></p>
-							<th:block th:text="${#sessionHelper.removeSessionAttribute('message')?}"></th:block>
+<!--							<th:block th:text="${#sessionHelper.removeSessionAttribute('message')?}"></th:block>-->
 						</div>
 						<div class="container text-center">
 							<img alt="alt" width="90px" th:src="@{/images/signup.png}">

@@ -1,5 +1,6 @@
 package com.smart.controller;
 
+import com.smart.entities.Role;
 import com.smart.helper.SessionHelper;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -56,6 +57,9 @@ public class HomeController {
 						   @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
 						   HttpSession session) {
 		try {
+			if (session.getAttribute("message") != null) {
+				session.removeAttribute("message");
+			}
 			if (!agreement) {
 				throw new Exception("You have not agreed the terms and conditions");
 			}
