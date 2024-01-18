@@ -57,7 +57,11 @@ public class MyConfig {
 										.hasRole("USER")
 								.requestMatchers("/**")
 										.permitAll())
-				.formLogin(Customizer.withDefaults());
+				.formLogin( form -> form
+						.loginPage("/signin")
+						.loginProcessingUrl("/signin")
+						.defaultSuccessUrl("/user/index")
+						.permitAll() );
 		return http.build();
 
 	}

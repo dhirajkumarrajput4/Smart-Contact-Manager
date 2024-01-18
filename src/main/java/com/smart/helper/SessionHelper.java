@@ -4,16 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Component
 public class SessionHelper {
-    @Autowired
-    private ObjectFactory<HttpSession> sessionFactory;
-
-    public HttpSession getSession() {
-        return sessionFactory.getObject();
+    public HttpSession getSession(){
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
     }
-
     public void removeSessionAttribute(String key){
         try {
             HttpSession session = getSession();
