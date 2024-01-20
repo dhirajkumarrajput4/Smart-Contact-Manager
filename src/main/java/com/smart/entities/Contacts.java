@@ -9,7 +9,7 @@ public class Contacts {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
 	private String name;
-	private String niceName;
+	private String nickName;
 	private String work;
 	private String email;
 	private String phone;
@@ -25,12 +25,11 @@ public class Contacts {
 	}
 
 	// using field constructor
-	public Contacts(int cId, String name, String niceName, String work, String email, String phone, String image,
-			String description, User user) {
-		super();
-		this.cId = cId;
+
+
+	public Contacts(String name, String nickName, String work, String email, String phone, String image, String description, User user) {
 		this.name = name;
-		this.niceName = niceName;
+		this.nickName = nickName;
 		this.work = work;
 		this.email = email;
 		this.phone = phone;
@@ -55,12 +54,12 @@ public class Contacts {
 		this.name = name;
 	}
 
-	public String getNiceName() {
-		return niceName;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNiceName(String niceName) {
-		this.niceName = niceName;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getWork() {
