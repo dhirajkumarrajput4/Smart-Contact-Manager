@@ -2,6 +2,7 @@ package com.smart.entities;
 
 
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Contacts {
@@ -13,7 +14,9 @@ public class Contacts {
 	private String work;
 	private String email;
 	private String phone;
-	private String image;
+	private String profilePic;
+	@Lob
+	@Column(columnDefinition = "LONGTEXT")
 	private String description;
 	@ManyToOne()
 	private User user;
@@ -25,17 +28,23 @@ public class Contacts {
 	}
 
 	// using field constructor
-
-
-	public Contacts(String name, String nickName, String work, String email, String phone, String image, String description, User user) {
+	public Contacts(String name, String nickName, String work, String email, String phone, String profilePic, String description, User user) {
 		this.name = name;
 		this.nickName = nickName;
 		this.work = work;
 		this.email = email;
 		this.phone = phone;
-		this.image = image;
+		this.profilePic = profilePic;
 		this.description = description;
 		this.user = user;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 
 	public int getcId() {
@@ -86,13 +95,6 @@ public class Contacts {
 		this.phone = phone;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	public String getDescription() {
 		return description;
