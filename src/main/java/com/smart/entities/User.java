@@ -9,122 +9,122 @@ import java.util.List;
 
 @Entity
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	@NotBlank(message = "Name field is required !")
-	@Size(min=2,max=20,message = "Min 2 and max 20 character allowed !")
-	private String name;
-	@Column(unique = true)
-	private String email;
-	private String password;
-	private String role;
-	private boolean enabled;
-	private String imageUrl;
-	private String about;
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
-	private List<Contacts> contact = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @NotBlank(message = "Name field is required !")
+    @Size(min = 2, max = 20, message = "Min 2 and max 20 character allowed !")
+    private String name;
+    @Column(unique = true)
+    private String email;
+    private String phone;
+    private String password;
+    private String role;
+    private boolean enabled;
+    private String imageUrl;
+    private String about;
 
-	// constructor
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    private List<Contacts> contact = new ArrayList<>();
 
-//constructor using field
-	public User(int id, String name, String email, String password, String role, boolean enabled, String imageUrl,
-			String about, List<Contacts> contact) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.enabled = enabled;
-		this.imageUrl = imageUrl;
-		this.about = about;
-		this.contact = contact;
-	}
+    // constructor
+    public User() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public int getId() {
-		return id;
-	}
+    //constructor using field
+    public User(int id, String name, String email, String password, String role, boolean enabled, String imageUrl,
+                String about, List<Contacts> contact) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+        this.imageUrl = imageUrl;
+        this.about = about;
+        this.contact = contact;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public String getAbout() {
-		return about;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public void setAbout(String about) {
-		this.about = about;
-	}
+    public String getAbout() {
+        return about;
+    }
 
-	public List<Contacts> getContact() {
-		return contact;
-	}
+    public void setAbout(String about) {
+        this.about = about;
+    }
 
-	public void setContact(List<Contacts> contact) {
-		this.contact = contact;
-	}
+    public List<Contacts> getContact() {
+        return contact;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contact=" + contact + "]";
-	}
+    public void setContact(List<Contacts> contact) {
+        this.contact = contact;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+                + ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contact=" + contact + "]";
+    }
 
 
-	
 }

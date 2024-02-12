@@ -9,3 +9,20 @@ const togleSidebar = () => {
     $(".content").css("margin-left", "20%");
   }
 };
+
+function deleteContact(cId){
+swal({
+  title: "Do you want to delete this contact?",
+  text: "Once deleted, you will not be able to recover this contact!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+        window.location="/user/contact/delete/"+cId;
+  } else {
+    swal("Your contact is safe!");
+  }
+});
+}

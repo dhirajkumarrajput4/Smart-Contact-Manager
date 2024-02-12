@@ -83,3 +83,8 @@ body {
 .content{
     margin-left: 20%;
 }
+.profile_pic{
+    width:37px;
+    height:40px;
+    border-radius:50px;
+}
