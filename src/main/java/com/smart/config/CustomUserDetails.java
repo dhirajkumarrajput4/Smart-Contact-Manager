@@ -10,14 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.smart.entities.User;
 
 public class CustomUserDetails implements UserDetails {
-
 	private User user;
 //constructor using field
 	public CustomUserDetails(User user) {
 		super();
 		this.user = user;
 	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());

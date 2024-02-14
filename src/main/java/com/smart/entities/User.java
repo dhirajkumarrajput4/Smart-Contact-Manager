@@ -17,7 +17,7 @@ public class User {
     private String name;
     @Column(unique = true)
     private String email;
-    private String phone;
+//    private String phone;
     private String password;
     private String role;
     private boolean enabled;

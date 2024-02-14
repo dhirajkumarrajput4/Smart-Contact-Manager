@@ -42,10 +42,7 @@ public class MyConfig {
 		authenticationManagerBuilder.authenticationProvider(authenticationProvider());
 		return authenticationManagerBuilder.build();
 	}
-/*	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-		return config.getAuthenticationManager();
-	}*/
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
