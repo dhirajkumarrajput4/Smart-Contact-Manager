@@ -14,11 +14,12 @@ public class Contacts {
     private String name;
     private String nickName;
     private String work;
+    @Column(name = "email_id")
     private String email;
     private String phone;
     private String profilePic;
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+//    @Column(columnDefinition = "LONGTEXT")
     private String description;
     @ManyToOne()
     private User user;
