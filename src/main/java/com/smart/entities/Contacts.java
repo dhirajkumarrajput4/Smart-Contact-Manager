@@ -19,7 +19,7 @@ public class Contacts {
     private String phone;
     private String profilePic;
     @Lob
-//    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
     @ManyToOne()
     private User user;

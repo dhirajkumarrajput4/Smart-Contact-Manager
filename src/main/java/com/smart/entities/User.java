@@ -16,6 +16,7 @@ public class User {
     @NotBlank(message = "Name field is required !")
     @Size(min = 2, max = 20, message = "Min 2 and max 20 character allowed !")
     private String name;
+
     @Column(unique = true,name = "email_id")
     private String email;
 //    private String phone;
