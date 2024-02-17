@@ -4,6 +4,8 @@ package com.smart.entities;
 import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 @Entity
@@ -22,6 +24,7 @@ public class Contacts {
     @Column(columnDefinition = "LONGTEXT")
     private String description;
     @ManyToOne()
+    @JsonIgnore
     private User user;
 
     // constructor

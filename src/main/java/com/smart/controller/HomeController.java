@@ -1,8 +1,12 @@
 package com.smart.controller;
 
+import com.mysql.cj.Session;
 import com.smart.entities.Role;
+import com.smart.helper.PasswordGenerator;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,16 +18,22 @@ import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 import com.smart.helper.Message;
 
+import java.util.Optional;
+
 
 @Controller
 public class HomeController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 	// Create object of user repository using autowired
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private PasswordGenerator passwordGenerator;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -47,6 +57,25 @@ public class HomeController {
 	public String customLogin(Model model){
 		model.addAttribute("title", "Login-SmartContactManager");
 		return "login";
+	}
+	@GetMapping("/forgot_password")
+	public String forgotPassword(Model model){
+		model.addAttribute("title", "Forgot-Password");
+		return "forgot_password";
+	}
+
+
+	@PostMapping("/forgot_password")
+	public String forgotPassowrdProccess(@RequestParam("username")String email, HttpSession session){
+		Optional<User> userOptional = userRepository.findByEmail(email);
+		User user = userOptional.get();
+		String generatedRandomPassword = passwordGenerator.generateRandomPassword();
+		user.setPassword(passwordEncoder.encode(generatedRandomPassword));
+		userRepository.save(user);
+		LOGGER.info("Password has resetted : "+generatedRandomPassword);
+
+		session.setAttribute("message",new Message("Your password resetted successfully: "+generatedRandomPassword,"alert-success"));
+		return "forgot_password";
 	}
 
 
@@ -84,4 +113,6 @@ public class HomeController {
 			return "signup";
 		}
 	}
+
+
 }
