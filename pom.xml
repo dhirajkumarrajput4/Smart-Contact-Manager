@@ -78,13 +78,13 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.1</version>
-				<configuration>
-					<release>17</release>
-				</configuration>
-			</plugin>
+           			 <groupId>org.apache.maven.plugins</groupId>
+           			 <artifactId>maven-compiler-plugin</artifactId>
+         			   <version>3.12.1</version> <!-- Use a version that you know is available -->
+          			  <configuration>
+          			      <release>17</release>
+           			 </configuration>
+       		 </plugin>
 		</plugins>
 	</build>
 
