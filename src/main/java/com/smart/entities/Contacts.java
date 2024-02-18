@@ -20,7 +20,7 @@ public class Contacts {
     private String email;
     private String phone;
     private String profilePic;
-    @Lob
+//    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne()

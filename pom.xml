@@ -29,8 +29,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.3.1</version> <!-- Replace with the version you want to
-			use -->
+			<version>42.3.1</version> <!-- Replace with the version you want to use -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -77,6 +76,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.1</version>
+				<configuration>
+					<release>17</release>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
