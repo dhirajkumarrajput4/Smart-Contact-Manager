@@ -16,7 +16,11 @@
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link rel="stylesheet" th:href="@{/css/style.css}"/>
-
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        
 <title th:text="${title}">Base Html</title>
 </head>
 
@@ -52,11 +56,11 @@
 <!--It is sidebar-->
 <div class="sidebar mt-2">
     <span onclick="togleSidebar()" class="crossBtn">&times;</span>
-    <a href="#" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i>Home</a>
-    <a href="#" th:href="@{/user/show-contacts/0}" class="item"><i class="fas fa-id-card-alt"></i>View Contacts</a>
-    <a href="#" th:href="@{/user/add-contact}" class="item"><i class="fas fa-pencil-alt"></i>Add Contact</a>
-    <a href="#" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i>Your Profile</a>
-    <a href="#" class="item"><i class="fas fa-cogs"></i>Settings</a>
+    <a id="home" th:href="@{/user/index}" class="item active"><i class="fas fa-home"></i>Home</a>
+    <a id="view_contacts" th:href="@{/user/show-contacts/0}" class="item"><i class="fas fa-id-card-alt"></i>View Contacts</a>
+    <a id="add_contact" th:href="@{/user/add-contact}" class="item"><i class="fas fa-pencil-alt"></i>Add Contact</a>
+    <a id="your_profile" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i>Your Profile</a>
+    <a id="settings" th:href="@{/user/settings}" class="item"><i class="fas fa-cogs"></i>Settings</a>
     <a href="" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i>Logout</a>
     <div class="divider"></div>
 </div>
@@ -77,10 +81,7 @@
 
 <!-- Optional JavaScript; choose one of the two! -->
 
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"

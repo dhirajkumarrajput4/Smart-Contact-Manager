@@ -12,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,9 @@ public class UserController {
 
 	@Autowired
 	private ContactService contactService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@ModelAttribute
 	public void addCommanData(Model model, Principal principal) { // This method will add command-data to all handler
@@ -163,6 +167,30 @@ public class UserController {
 		model.addAttribute("title", "Profile");
 
 		return "normal/viewProfile";
+	}
+
+	@GetMapping("/settings")
+	public String openSettings(Model model) {
+
+		model.addAttribute("title", "Settings");
+
+		return "normal/settings";
+	}
+	
+	@PostMapping("/change-password")
+	public String changePassword(@RequestParam("oldpassword")String oldpassword, @RequestParam("newpassword")String newpassword,Principal principal,HttpSession session) {
+		
+		Optional<User> user = this.userService.findByEmail(principal.getName());
+		
+		if(this.bCryptPasswordEncoder.matches(oldpassword, user.get().getPassword())) {
+			user.get().setPassword(this.bCryptPasswordEncoder.encode(newpassword));
+			this.userService.save(user.get());
+			session.setAttribute("message", new Message("Your password successfully changed","alert-success"));
+		}else {
+			session.setAttribute("message", new Message("Please enter correct password","alert-danger"));
+		}
+		
+		return "redirect:/user/index";
 	}
 
 }

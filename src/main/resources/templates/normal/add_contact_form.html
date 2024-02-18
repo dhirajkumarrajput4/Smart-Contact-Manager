@@ -76,7 +76,14 @@
         tinymce.init({
             selector: '#description'
         });
-    </script>
+ 
+	$(document).ready(() => {
+		
+		$('.item').removeClass('active');
+		$('#add_contact').addClass('active')
+		
+	})
+</script>
 </section>
 </body>
 </html>
