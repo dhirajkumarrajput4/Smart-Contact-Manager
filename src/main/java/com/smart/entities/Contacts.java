@@ -21,7 +21,7 @@ public class Contacts {
     private String phone;
     private String profilePic;
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne()
     @JsonIgnore
