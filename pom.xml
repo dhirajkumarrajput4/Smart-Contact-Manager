@@ -31,7 +31,6 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.3.1</version> <!-- Replace with the version you want to use -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
