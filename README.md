@@ -1,18 +1,8 @@
-# Project Title
+# SMART CONTACT MANAGER
 
 ## Description
 
 This project is a demonstration of a web application built with Spring Security, Hibernate, JPA, and JWT authentication. It showcases how to implement secure authentication and authorization mechanisms using industry-standard technologies. Additionally, it includes a smart contact manager feature where users can create, delete, and update contact details including mobile number and image.
-
-## Table of Contents
-
-1. [Features](#features)
-2. [Technologies Used](#technologies-used)
-3. [Installation](#installation)
-4. [Configuration](#configuration)
-5. [Usage](#usage)
-6. [Contributing](#contributing)
-7. [License](#license)
 
 ## Features
 
