@@ -20,7 +20,6 @@ import com.smart.helper.Message;
 
 import java.util.Optional;
 
-
 @Controller
 public class HomeController {
 
@@ -53,40 +52,18 @@ public class HomeController {
 		model.addAttribute("user", new User());
 		return "signup";
 	}
+
 	@GetMapping("/signin")
-	public String customLogin(Model model){
+	public String customLogin(Model model) {
 		model.addAttribute("title", "Login-SmartContactManager");
 		return "login";
 	}
-	@GetMapping("/forgot_password")
-	public String forgotPassword(Model model){
-		model.addAttribute("title", "Forgot-Password");
-		return "forgot_password";
-	}
-
-
-	@PostMapping("/forgot_password")
-	public String forgotPassowrdProccess(@RequestParam("username")String email, HttpSession session){
-		Optional<User> userOptional = userRepository.findByEmail(email);
-		User user = userOptional.get();
-		String generatedRandomPassword = passwordGenerator.generateRandomPassword();
-		user.setPassword(passwordEncoder.encode(generatedRandomPassword));
-		userRepository.save(user);
-		LOGGER.info("Password has resetted : "+generatedRandomPassword);
-
-		session.setAttribute("message",new Message("Your password resetted successfully: "+generatedRandomPassword,"alert-success"));
-		return "forgot_password";
-	}
-
 
 	@RequestMapping(value = "/do_action", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("user") User user, BindingResult result1,
-						   @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
-						   HttpSession session) {
+			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
+			HttpSession session) {
 		try {
-/*			if (session.getAttribute("message") != null) {
-				session.removeAttribute("message");
-			}*/
 			if (!agreement) {
 				throw new Exception("You have not agreed the terms and conditions");
 			}
@@ -113,6 +90,5 @@ public class HomeController {
 			return "signup";
 		}
 	}
-
 
 }

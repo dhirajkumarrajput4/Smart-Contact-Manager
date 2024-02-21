@@ -155,7 +155,7 @@ public class UserController {
 			contact.setUser(user);
 			contactService.save(contact);
 			session.setAttribute("message", new Message("Contact successfully updated", "alert-success"));
-		} catch (Exception exception) {
+		} catch (Exception exception) { 
 			session.setAttribute("message", new Message(exception.getMessage(), "alert-danger"));
 			exception.printStackTrace();
 		}
@@ -165,7 +165,7 @@ public class UserController {
 	@GetMapping("/profile")
 	public String profile(Model model) {
 		model.addAttribute("title", "Profile");
-
+ 
 		return "normal/viewProfile";
 	}
 
