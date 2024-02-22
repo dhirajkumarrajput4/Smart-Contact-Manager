@@ -3,6 +3,7 @@ package com.smart.controller;
 import java.util.Optional;
 import java.util.Random;
 
+import com.smart.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ForgotPasswordController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private MailService mailService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ForgotPasswordController.class);
 
@@ -79,6 +83,7 @@ public class ForgotPasswordController {
 		
 		return "change_password";
 	}
+
 
 
 }
