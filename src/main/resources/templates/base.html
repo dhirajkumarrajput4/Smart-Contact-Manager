@@ -45,7 +45,7 @@
     </div>
 </nav>
 <!-- Navbar End -->
-<div class="container">
+<div class="container" style="max-width:100%;">
     <div class="container" th:if="${session.message}">
         <div th:classappend="${'alert '+session.message.type}" class="text-center" role="alert">
             <span th:text="${session.message.content}"></span>
