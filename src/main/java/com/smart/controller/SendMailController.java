@@ -25,11 +25,8 @@ public class SendMailController {
     @PostMapping("/send")
     public ResponseEntity<String> sendMail(){
         Mail mail = new Mail();
-
-        mail.setMailFrom("mydesktop2662@gmail.com");
         mail.setMailTo("dhirajkumarrajput4@gmail.com");
-        mail.setMailSubject("Spring Boot - Email demo");
-
+        mail.setMailSubject("BY-Smart-Contact-Manager");
         //mail content
         Context context = new Context();
         context.setVariable("title", "Dynamic Title");
@@ -38,8 +35,6 @@ public class SendMailController {
         String htmlContent = templateEngine.process("/email/email-template", context);
 
         mail.setMailContent(htmlContent);
-
-        mailService.sendEmail(mail);
 
         mailService.sendEmail(mail);
         return ResponseEntity.ok("Mail send Successfully");

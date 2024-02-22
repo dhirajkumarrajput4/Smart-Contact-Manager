@@ -11,6 +11,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.util.List;
+
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -19,12 +22,16 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendEmail(Mail mail) {
+        //mail delivered from this mail id
+        mail.setMailFrom("mydesktop2662@gmail.com");
+
         String to = mail.getMailTo();
         String cc = mail.getMailCc();
         String bcc = mail.getMailBcc();
         String subject = mail.getMailSubject();
         String sender = mail.getMailFrom();
         String bodyHtml = mail.getMailContent();
+        List<String> fileAttachments=null;
 
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
@@ -42,32 +49,28 @@ public class MailServiceImpl implements MailService {
             }
 
             // Create a multipart/alternative child container.
+
             MimeMultipart msg_body = new MimeMultipart("alternative");
 
-            // Create a wrapper for the HTML and text parts.
-            MimeBodyPart wrap = new MimeBodyPart();
-
             // Define the HTML part.
-
-            // Encode the HTML content and set the character encoding.
             if (bodyHtml != null) {
                 MimeBodyPart htmlPart = new MimeBodyPart();
                 htmlPart.setContent(bodyHtml, "text/html; charset=UTF-8");
-                htmlPart.setHeader("Content-Transfer-Encoding", "base64");
                 msg_body.addBodyPart(htmlPart);
             }
-            // Add the text and HTML parts to the child container.
 
-            // Add the child container to the wrapper object.
-            wrap.setContent(msg_body);
+            // Add file attachments
+            if (fileAttachments != null) {
+                for (String filePath : fileAttachments) {
+                    MimeBodyPart attachmentPart = new MimeBodyPart();
+                    attachmentPart.attachFile(new File(filePath));
+                    msg_body.addBodyPart(attachmentPart);
+                }
+            }
+            // Add the multipart/alternative container to the message.
+            message.setContent(msg_body);
 
-            // Create a multipart/mixed parent container.
-            MimeMultipart msg = new MimeMultipart("mixed");
-
-            // Add the parent container to the message.
-            message.setContent(msg);
-
-            //send message
+            // Send the message.
             javaMailSender.send(message);
 
         } catch (Exception ex) {
