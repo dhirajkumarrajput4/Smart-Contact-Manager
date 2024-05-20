@@ -32,7 +32,7 @@ public class SendMailController {
         context.setVariable("title", "Dynamic Title");
         context.setVariable("message", "Hello, this is a dynamic message!");
 
-        String htmlContent = templateEngine.process("/email/email-template", context);
+        String htmlContent = templateEngine.process("email/email-template", context);
 
         mail.setMailContent(htmlContent);
 

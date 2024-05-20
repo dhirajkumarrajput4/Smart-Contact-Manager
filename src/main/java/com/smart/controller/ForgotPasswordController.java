@@ -138,7 +138,7 @@ public class ForgotPasswordController {
         context.setVariable("title", "Welcome to Smart-Contact-Manager");
         context.setVariable("message", "Your OTP is : " + otp);
 
-        String htmlContent = templateEngine.process("/email/email-template", context);
+        String htmlContent = templateEngine.process("email/email-template", context);
         mail.setMailContent(htmlContent);
         return mail;
     }
