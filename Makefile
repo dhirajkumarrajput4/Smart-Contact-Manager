@@ -2,7 +2,7 @@
 APP_NAME=Contact-Manager-0.0.1-SNAPSHOT
 JAR_FILE=target/${APP_NAME}.jar
 REMOTE_USER=ubuntu
-REMOTE_HOST=ec2-52-200-57-227.compute-1.amazonaws.com
+REMOTE_HOST=ec2-54-225-173-208.compute-1.amazonaws.com
 REMOTE_DIR=/home/ubuntu
 SSH_KEY=awskey.pem
 
