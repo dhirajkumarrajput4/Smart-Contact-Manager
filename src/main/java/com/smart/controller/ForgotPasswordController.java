@@ -118,7 +118,7 @@ public class ForgotPasswordController {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             session.setAttribute("message", new Message("Your password change successfully", "alert-success"));
-            return "redirect:/user/signin";
+            return "redirect:/signin";
         } else {
             session.setAttribute("message",new Message("Your password is not match with confirm password","alert-danger"));
             return "change_password";
