@@ -46,7 +46,7 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
-						.authorizeRequests((authorizeRequests)->
+						.authorizeHttpRequests((authorizeRequests)->
 								authorizeRequests
 										.requestMatchers("/admin/**")
 								.hasRole("ADMIN")
@@ -62,4 +62,6 @@ public class MyConfig {
 		return http.build();
 
 	}
+
+
 }
