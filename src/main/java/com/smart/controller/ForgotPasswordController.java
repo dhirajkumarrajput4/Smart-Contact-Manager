@@ -123,10 +123,7 @@ public class ForgotPasswordController {
             session.setAttribute("message",new Message("Your password is not match with confirm password","alert-danger"));
             return "change_password";
         }
-
-
     }
-
 
     private Mail generateMailWithBody(Integer otp, String email) {
         //for send mail
@@ -146,6 +143,5 @@ public class ForgotPasswordController {
     private static Integer generateOTP() {
         return new Random().nextInt(900000) + 100000;
     }
-
 
 }
