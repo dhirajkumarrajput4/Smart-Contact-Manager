@@ -27,20 +27,26 @@ import org.thymeleaf.context.Context;
 @Controller
 public class ForgotPasswordController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final PasswordGenerator passwordGenerator;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final MailService mailService;
+
+    private final TemplateEngine templateEngine;
 
     @Autowired
-    private PasswordGenerator passwordGenerator;
+    public ForgotPasswordController(UserRepository userRepository, PasswordGenerator passwordGenerator,
+                                    PasswordEncoder passwordEncoder, MailService mailService, TemplateEngine templateEngine) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
+        this.passwordGenerator = passwordGenerator;
+        this.templateEngine = templateEngine;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private MailService mailService;
-
-    @Autowired
-    private TemplateEngine templateEngine;
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ForgotPasswordController.class);
 
@@ -52,12 +58,11 @@ public class ForgotPasswordController {
 
     @PostMapping("/forgot_password")
     public String forgotPasswordProcess(@RequestParam("username") String email, HttpSession session) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-        User user = userOptional.get();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found."));
         String generatedRandomPassword = passwordGenerator.generateRandomPassword();
         user.setPassword(passwordEncoder.encode(generatedRandomPassword));
         userRepository.save(user);
-        LOGGER.info("Password has resetted : " + generatedRandomPassword);
+        LOGGER.info("Password has reset successfully");
 
         session.setAttribute("message",
                 new Message("Your password updated successfully: " + generatedRandomPassword, "alert-success"));
@@ -99,7 +104,6 @@ public class ForgotPasswordController {
     @PostMapping("verify_otp")
     public String verifyOtp(@RequestParam("otp") int otp, Model modle, HttpSession session) {
         int myOtp = (int) session.getAttribute("otp");
-        String emailId = (String) session.getAttribute("emailId");
         if (otp == myOtp) {
             modle.addAttribute("title", "Update-Password");
             return "change_password";
@@ -113,14 +117,14 @@ public class ForgotPasswordController {
     public String changePassword(@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
                                  HttpSession session) {
         String emailId = (String) session.getAttribute("emailId");
-        User user = userRepository.findByEmail(emailId).get();
+        User user = userRepository.findByEmail(emailId).orElseThrow(()->new RuntimeException("User not found"));
         if (newPassword.equals(confirmPassword)) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             session.setAttribute("message", new Message("Your password change successfully", "alert-success"));
             return "redirect:/user/signin";
         } else {
-            session.setAttribute("message",new Message("Your password is not match with confirm password","alert-danger"));
+            session.setAttribute("message", new Message("Your password is not match with confirm password", "alert-danger"));
             return "change_password";
         }
 

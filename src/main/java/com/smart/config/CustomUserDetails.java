@@ -10,52 +10,50 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.smart.entities.User;
 
 public class CustomUserDetails implements UserDetails {
-	private User user;
-//constructor using field
-	public CustomUserDetails(User user) {
-		super();
-		this.user = user;
-	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-		return List.of(simpleGrantedAuthority);
-	}
 
-	@Override
-	public String getPassword() {
+    private final transient User user;
 
-		return user.getPassword();
-	}
+    public CustomUserDetails(User user) {
+        super();
+        this.user = user;
+    }
 
-	@Override
-	public String getUsername() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
+        return List.of(simpleGrantedAuthority);
+    }
 
-		return user.getEmail();
-	}
+    @Override
+    public String getPassword() {
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+        return user.getPassword();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public String getUsername() {
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+        return user.getEmail();
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

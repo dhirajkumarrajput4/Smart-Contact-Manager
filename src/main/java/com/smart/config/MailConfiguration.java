@@ -6,19 +6,25 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
 public class MailConfiguration {
+
+
+    private final Environment environment;
+
     @Autowired
-    private Environment environment;
+    public MailConfiguration(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
-    public JavaMailSenderImpl getMailSender()
-    {
+    public JavaMailSenderImpl getMailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost(environment.getProperty("spring.mail.host"));
-        javaMailSender.setPort(Integer.valueOf(environment.getProperty("spring.mail.port")));
+        javaMailSender.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("spring.mail.port"))));
         javaMailSender.setUsername(environment.getProperty("spring.mail.username"));
         javaMailSender.setPassword(environment.getProperty("spring.mail.password"));
 

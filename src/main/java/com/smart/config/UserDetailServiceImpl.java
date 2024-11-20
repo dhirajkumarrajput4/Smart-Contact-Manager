@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -16,12 +15,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// fetching user from database
-		Optional<User> userByUsername = Optional.ofNullable(this.userRepository.findByEmail(username).orElseThrow(() ->new UsernameNotFoundException("Could not found user !!")));
-		CustomUserDetails customUserDetails = new CustomUserDetails(userByUsername.get());
-		return customUserDetails;
-	}
+		Optional<User> userByUsername = Optional.ofNullable(this.userRepository.findByEmail(username)
+                .orElseThrow(() ->new UsernameNotFoundException("Could not found user !!")));
+        return userByUsername.map(CustomUserDetails::new).orElse(null);
+    }
 
 }
