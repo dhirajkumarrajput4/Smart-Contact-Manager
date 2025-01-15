@@ -23,6 +23,7 @@ public class Contacts {
 //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
+
     @ManyToOne()
     @JsonIgnore
     private User user;

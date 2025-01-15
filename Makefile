@@ -2,7 +2,7 @@
 APP_NAME=Contact-Manager-0.0.1-SNAPSHOT
 JAR_FILE=target/${APP_NAME}.jar
 REMOTE_USER=ubuntu
-REMOTE_HOST=ec2-52-200-57-227.compute-1.amazonaws.com
+REMOTE_HOST=ec2-54-225-173-208.compute-1.amazonaws.com
 REMOTE_DIR=/home/ubuntu
 SSH_KEY=awskey.pem
 
@@ -32,6 +32,9 @@ chmod-executable:
 start:
 	ssh -i ${SSH_KEY} ${REMOTE_USER}@${REMOTE_HOST} "nohup java -jar ${REMOTE_DIR}/${APP_NAME}.jar > ${REMOTE_DIR}/app.log 2>&1 &" || { echo 'Start failed'; exit 1; }
 	ssh -i ${SSH_KEY} ${REMOTE_USER}@${REMOTE_HOST} "tail -f ${REMOTE_DIR}/app.log"
+
+logs:
+	ssh -i ${SSH_KEY} ${REMOTE_USER}@${REMOTE_HOST} "tail -f ${REMOTE_DIR}/app.log" || { echo 'Logs failed'; exit 1; }
 
 # Stop the Spring Boot application on the EC2 instance
 stop:

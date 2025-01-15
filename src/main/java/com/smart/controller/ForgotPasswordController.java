@@ -122,15 +122,12 @@ public class ForgotPasswordController {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             session.setAttribute("message", new Message("Your password change successfully", "alert-success"));
-            return "redirect:/user/signin";
+            return "redirect:/signin";
         } else {
             session.setAttribute("message", new Message("Your password is not match with confirm password", "alert-danger"));
             return "change_password";
         }
-
-
     }
-
 
     private Mail generateMailWithBody(Integer otp, String email) {
         //for send mail
@@ -150,6 +147,5 @@ public class ForgotPasswordController {
     private static Integer generateOTP() {
         return new Random().nextInt(900000) + 100000;
     }
-
 
 }

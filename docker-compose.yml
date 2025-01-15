@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0.27
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Set your desired root password here
+      MYSQL_DATABASE: smartcontact
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/smartcontact
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_JPA_SHOW-SQL: "true"
+      SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
+      SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE: "10MB"
+      SPRING_DATASOURCE_HIKARI_CONNECTION-TIMEOUT: "30000"
+      # Email service configuration
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: mydesktop2662@gmail.com
+      SPRING_MAIL_PASSWORD: rsimtmkvndyggppw
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_CONNECTIONTIMEOUT: "5000"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_TIMEOUT: "5000"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_WRITETIMEOUT: "5000"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
