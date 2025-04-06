@@ -87,7 +87,6 @@ public class ForgotPasswordController {
         } else {
             //generate otp
             Integer otp = generateOTP();
-            LOGGER.info("OTP is :" + otp);
             session.setAttribute("otp", otp);
             session.setAttribute("emailId", email);
 
